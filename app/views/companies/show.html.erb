@@ -7,3 +7,59 @@
 
 <%= link_to 'Edit', edit_company_path(@company) %> |
 <%= link_to 'Back', companies_path %>
+
+<%= form_with(model: [@company, @employee]) do |form| %>
+
+ 
+
+  <div class="field">
+    <%= form.label :firts_name %>
+    <%= form.text_field :firts_name %>
+  </div>
+
+  <div class="field">
+	<%= form.label :last_name %>
+    <%= form.text_field :last_name %>
+  </div>
+
+  <div class="field">
+	<%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+	<%= form.label :area_id %>
+    <%= form.select :area_id, Area.pluck(:name, :id) %>
+
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+
+<table>
+<thead>
+<tr>
+<th>Nombre</th>
+<th>Apellido</th>
+<th>Email</th>
+</tr>
+</thead>
+
+ <tbody>
+    <% @company.employees.each do |employee| %>
+      <tr>
+        <td><%= employee.last_name %></td>
+        <td><%= employee.firts_name %></td>
+       </tr>
+      <%= link_to 'borrar', company_employee_path(@company, employee), method: :delete, data: { confirm: 'Are you sure?' } %> 
+    <% end %>
+  </tbody>
+</table>
+
+
+
+
+
